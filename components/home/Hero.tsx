@@ -7,7 +7,7 @@ import { siteConfig } from "../../config/site";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white pt-12 pb-20 md:pb-28">
+    <section className="relative overflow-hidden bg-white pt-28 md:pt-28 pb-20 md:pb-28">
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
           {/* Text Content */}

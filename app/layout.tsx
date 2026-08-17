@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ar" dir="rtl" className={`${tajawal.variable} h-full antialiased`}>
+    <html lang="ar" dir="rtl" data-scroll-behavior="smooth" className={`${tajawal.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans text-navy bg-white selection:bg-gold selection:text-white">
         <Header />
         <main className="flex-grow">{children}</main>

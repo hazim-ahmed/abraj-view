@@ -1,59 +1,53 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu as MenuIcon, X as XIcon, Phone } from "lucide-react";
+import { 
+  Home, 
+  UserRound, 
+  LayoutGrid, 
+  MessagesSquare,
+  Phone
+} from "lucide-react";
 import Container from "../ui/Container";
 import { siteConfig } from "../../config/site";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const ticking = useRef(false);
 
-  // Handle header background style on scroll
+  // Trigger entrance animations after mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Smooth scroll detection with requestAnimationFrame (60fps)
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      if (!ticking.current) {
+        requestAnimationFrame(() => {
+          const currentProgress = Math.min(window.scrollY / 60, 1);
+          setScrollProgress(currentProgress);
+          ticking.current = false;
+        });
+        ticking.current = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent scroll when mobile menu is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
-
-  // Handle Escape key to close menu
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
   const navLinks = [
-    { label: "الرئيسية", href: "/" },
-    { label: "من نحن", href: "/about" },
-    { label: "مشاريعنا", href: "/projects" },
-    { label: "تواصل معنا", href: "/contact" },
+    { label: "الرئيسية", href: "/", icon: Home },
+    { label: "من نحن", href: "/about", icon: UserRound },
+    { label: "مشاريعنا", href: "/projects", icon: LayoutGrid },
+    { label: "تواصل معنا", href: "/contact", icon: MessagesSquare },
   ];
 
   const isActive = (href: string) => {
@@ -63,130 +57,262 @@ export default function Header() {
     return pathname.startsWith(href);
   };
 
+  // Interpolated Styles based on Scroll Progress (Desktop)
+  const isScrolled = scrollProgress > 0.5;
+  const headerTop = 28 - scrollProgress * 14;
+  const containerMaxWidth = isScrolled ? "max-w-6xl" : "max-w-7xl";
+
+  // Mobile Top Logo scroll animation (scrollY > 100px)
+  const isMobileScrolled = scrollProgress === 1; // 60px thresholds
+
   return (
     <>
+      {/* ──────────────────────────────────────────────────────── */}
+      {/* DESKTOP HEADER (MORPHING & FLOATING)                     */}
+      {/* ──────────────────────────────────────────────────────── */}
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 w-full ${
-          scrolled
-            ? "bg-[#182536]/95 backdrop-blur-md shadow-md border-b border-[#22364C] py-3"
-            : "bg-[#182536]/80 backdrop-blur-sm border-b border-transparent py-5"
-        }`}
+        className="hidden md:block fixed inset-x-0 z-[100] pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] @media(prefers-reduced-motion:reduce){transition:none}"
+        style={{
+          top: `${headerTop}px`,
+        }}
       >
-        <Container>
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
-              <span className="h-10 w-10 flex items-center justify-center rounded-xl bg-[#C7A35A] text-[#182536] font-black text-xl transition-all duration-300 group-hover:bg-[#DFC889] group-hover:scale-105">
-                أ
-              </span>
-              <div className="flex flex-col text-right">
-                <span className="text-lg font-black text-white tracking-tight leading-tight transition-colors duration-300 group-hover:text-[#DFC889]">
-                  {siteConfig.name}
-                </span>
-                <span className="text-[10px] text-[#DFC889] font-medium tracking-wide">
-                  تطوير عقاري راقٍ
-                </span>
-              </div>
-            </Link>
+        <div
+          className={`mx-auto w-full px-6 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${containerMaxWidth}`}
+        >
+          <div className="relative flex items-center justify-between pointer-events-auto">
+            
+            {/* Background Line */}
+            <div
+              className="absolute top-1/2 left-10 right-10 h-px bg-gradient-to-r from-transparent via-[#182536]/15 to-transparent -translate-y-1/2 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none"
+              style={{
+                opacity: 1 - scrollProgress,
+                transform: `translateY(-50%) scaleX(${1 - scrollProgress * 0.25})`,
+              }}
+            />
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
+            {/* LOGO WRAPPER */}
+            <div
+              className="transform-gpu will-change-transform transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                transform: `translateY(${-scrollProgress * 2}px) scale(${1 - scrollProgress * 0.02})`,
+              }}
+            >
+              <div
+                className="transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] rounded-full px-4 py-2"
+                style={{
+                  backgroundColor: `rgba(255, 255, 255, ${scrollProgress * 0.6})`,
+                  backdropFilter: isScrolled ? "blur(20px)" : "none",
+                  border: isScrolled ? "1px solid rgba(24, 37, 84, 0.05)" : "1px solid transparent",
+                  boxShadow: isScrolled ? "0 14px 40px -20px rgba(24,37,54,0.35)" : "none",
+                }}
+              >
+                <Link href="/" className="flex items-center gap-3 group">
+                  <span 
+                    className="flex items-center justify-center rounded-xl bg-[#C7A35A] text-[#182536] font-black text-xl transition-all duration-300 group-hover:bg-[#DFC889] group-hover:scale-105"
+                    style={{
+                      height: `${46 - scrollProgress * 4}px`,
+                      width: `${46 - scrollProgress * 4}px`,
+                    }}
+                  >
+                    أ
+                  </span>
+                  <div className="flex flex-col text-right">
+                    <span className="text-base font-black text-[#182536] tracking-tight leading-tight transition-colors duration-300 group-hover:text-[#C7A35A]">
+                      {siteConfig.name}
+                    </span>
+                    <span className="text-[9px] text-[#C7A35A] font-medium tracking-wide">
+                      تطوير عقاري راقٍ
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            {/* NAVIGATION PILL */}
+            <nav
+              className="transform-gpu will-change-transform flex items-center gap-6 px-7 py-2.5 rounded-full border transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                transform: `translateY(${-scrollProgress * 4}px) scale(${1 - scrollProgress * 0.03})`,
+                backgroundColor: isScrolled ? "rgba(247, 247, 244, 0.8)" : "rgba(24, 37, 54, 0.015)",
+                borderColor: isScrolled ? "rgba(24, 37, 54, 0.08)" : "rgba(24, 37, 54, 0.04)",
+                backdropFilter: isScrolled ? "blur(24px)" : "blur(4px)",
+                boxShadow: isScrolled ? "0 16px 45px -18px rgba(24, 37, 54, 0.28)" : "none",
+              }}
+            >
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm font-bold transition-all duration-300 relative py-2 px-1 flex flex-col items-center gap-1 ${
+                  className={`text-xs font-bold transition-all duration-300 relative py-1 px-1 flex flex-col items-center gap-1.5 ${
                     isActive(link.href)
                       ? "text-[#C7A35A]"
-                      : "text-white/80 hover:text-[#C7A35A] hover:-translate-y-[1px]"
+                      : "text-[#182536]/80 hover:text-[#C7A35A] hover:-translate-y-[1px]"
                   }`}
                 >
                   <span>{link.label}</span>
-                  {/* Indicator */}
                   <span
-                    className={`h-1.5 w-1.5 rounded-full bg-[#C7A35A] transition-all duration-300 ${
-                      isActive(link.href) ? "opacity-100 scale-100" : "opacity-0 scale-50"
-                    }`}
+                    className="h-1.5 w-1.5 rounded-full bg-[#C7A35A] transition-all duration-300"
+                    style={{
+                      opacity: isActive(link.href) ? 1 : 0,
+                      transform: isActive(link.href) ? "scale(1)" : "scale(0.5)",
+                      boxShadow: isActive(link.href) ? "0 2px 12px rgba(199,163,90,0.9)" : "none",
+                    }}
                   />
                 </Link>
               ))}
             </nav>
 
-            {/* CTA Button */}
-            <div className="hidden lg:flex items-center">
-              <Link
-                href="/contact"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#C7A35A] text-[#182536] hover:bg-[#DFC889] hover:text-[#182536] transition-all duration-300 text-sm font-bold shadow-sm hover:shadow-md hover:scale-[1.02]"
-              >
-                <Phone className="w-4 h-4" />
-                <span>تواصل معنا</span>
-              </Link>
+            {/* CTA BUTTON */}
+            <div
+              className="transform-gpu will-change-transform transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                transform: `translateY(${-scrollProgress * 2}px) scale(${1 - scrollProgress * 0.02})`,
+              }}
+            >
+              <div className="hover:scale-[1.03] active:scale-95 transition-transform duration-200">
+                <Link
+                  href="/contact"
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#182536] text-white hover:bg-[#C7A35A] hover:text-[#182536] transition-all duration-300 text-xs font-bold"
+                  style={{
+                    boxShadow: isScrolled ? "0 14px 35px -15px rgba(24, 37, 54, 0.35)" : "none",
+                  }}
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>تواصل معنا</span>
+                </Link>
+              </div>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2.5 rounded-xl text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#C7A35A]/50"
-              aria-label={isOpen ? "إغلاق القائمة" : "فتح القائمة"}
-            >
-              {isOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
-            </button>
           </div>
-        </Container>
+        </div>
       </header>
 
-      {/* Mobile Menu Overlay & Panel */}
-      <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+      {/* ──────────────────────────────────────────────────────── */}
+      {/* MOBILE TOP FLOATING LOGO                                 */}
+      {/* ──────────────────────────────────────────────────────── */}
+      <div 
+        className="fixed top-0 left-0 right-0 z-[100] md:hidden pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        style={{
+          transform: isMobileScrolled ? "translateY(-6px) scale(0.94)" : "translateY(0) scale(1)",
+          opacity: isMobileScrolled ? 0.85 : 1,
+        }}
       >
-        {/* Overlay backdrop */}
-        <div
-          onClick={() => setIsOpen(false)}
-          className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-        />
+        <div className="pt-5 sm:pt-6 flex justify-center pointer-events-auto">
+          <div 
+            className="relative flex items-center justify-center px-6 py-2 rounded-xl bg-white/60 backdrop-blur-md shadow-sm border border-[#182536]/5 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{
+              opacity: mounted ? 1 : 0,
+              transform: mounted ? "scaleX(1) translateY(0)" : "scaleX(0.75) translateY(-8px)"
+            }}
+          >
+            {/* Top Right Golden Corner */}
+            <div className="absolute -top-[2px] -right-[2px] w-6 h-6 border-t-[2.5px] border-r-[2.5px] border-[#C7A35A] rounded-tr-xl pointer-events-none" />
 
-        {/* Menu Panel */}
-        <div
-          className={`absolute top-24 left-4 right-4 bg-[#182536] border border-[#22364C] p-6 rounded-2xl shadow-2xl flex flex-col gap-6 transition-all duration-300 origin-top ${
-            isOpen ? "translate-y-0 scale-100 opacity-100" : "-translate-y-4 scale-95 opacity-0"
-          }`}
-        >
-          <div className="flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className={`text-base font-bold py-3.5 px-4 rounded-xl transition-all duration-200 flex items-center justify-between ${
-                  isActive(link.href)
-                    ? "bg-[#C7A35A]/10 text-[#C7A35A] border border-[#C7A35A]/20"
-                    : "text-white/90 hover:bg-white/5 hover:text-white"
-                }`}
-                style={{ minHeight: "48px" }}
-              >
-                <span>{link.label}</span>
-                {isActive(link.href) && (
-                  <span className="w-2 h-2 rounded-full bg-[#C7A35A]" />
-                )}
-              </Link>
-            ))}
-          </div>
+            {/* Bottom Left Golden Corner */}
+            <div className="absolute -bottom-[2px] -left-[2px] w-6 h-6 border-b-[2.5px] border-l-[2.5px] border-[#C7A35A] rounded-bl-xl pointer-events-none" />
 
-          <div className="border-t border-[#22364C] pt-6">
-            <Link
-              href="/contact"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-[#C7A35A] text-[#182536] hover:bg-[#DFC889] transition-all duration-200 text-base font-bold shadow-md"
-              style={{ minHeight: "48px" }}
-            >
-              <Phone className="w-5 h-5" />
-              <span>تواصل معنا</span>
+            {/* Logo Text Content */}
+            <Link href="/" className="flex items-center gap-2.5">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#C7A35A] text-[#182536] font-black text-base shadow-sm">
+                أ
+              </span>
+              <span className="text-sm font-black text-[#182536] tracking-tight">
+                {siteConfig.name}
+              </span>
             </Link>
+
+            {/* Little golden expanding line at bottom */}
+            <div 
+              className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 h-[2px] bg-[#C7A35A] rounded-full transition-all duration-1000 ease-out"
+              style={{
+                width: mounted ? "40px" : "0px",
+              }}
+            />
           </div>
         </div>
       </div>
+
+      {/* ──────────────────────────────────────────────────────── */}
+      {/* MOBILE BOTTOM NAVIGATION                                 */}
+      {/* ──────────────────────────────────────────────────────── */}
+      <nav
+        className="md:hidden fixed inset-x-0 mx-auto z-[100] w-[94%] max-w-md pointer-events-auto"
+        style={{
+          bottom: "calc(0.75rem + env(safe-area-inset-bottom))",
+          opacity: mounted ? 1 : 0,
+          transform: mounted
+            ? "translateY(0) scale(1)"
+            : "translateY(30px) scale(0.96)",
+          transition: "opacity 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1)",
+        }}
+      >
+        {/* Unified gradient glass bar — XLinkY style */}
+        <div
+          className="flex items-center gap-1 px-1.5 py-2 rounded-2xl border border-white/10 backdrop-blur-2xl"
+          style={{
+            background: "linear-gradient(90deg, #1D4F73 0%, #203B5A 50%, #2E3060 100%)",
+            boxShadow: "0 16px 40px -14px rgba(24,37,54,0.45)",
+            minHeight: "62px",
+          }}
+        >
+          {navLinks.map((link) => {
+            const active = isActive(link.href);
+            const IconComponent = link.icon;
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex items-center justify-center gap-1.5 py-2.5 rounded-xl select-none ${
+                  active ? "text-white" : "text-white/60 hover:text-white/80 active:scale-95"
+                }`}
+                style={
+                  active
+                    ? {
+                        flex: "1.5",
+                        minHeight: "44px",
+                        background: "rgba(255,255,255,0.18)",
+                        boxShadow: "inset 0 1px 1px rgba(255,255,255,0.18)",
+                        border: "1px solid rgba(255,255,255,0.14)",
+                        borderRadius: "0.75rem",
+                        transition: "flex 500ms cubic-bezier(0.22,1,0.36,1)",
+                      }
+                    : {
+                        flex: "1",
+                        minHeight: "44px",
+                        transition: "flex 500ms cubic-bezier(0.22,1,0.36,1), color 200ms",
+                      }
+                }
+              >
+                <IconComponent
+                  className="shrink-0"
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    strokeWidth: active ? 2.5 : 2,
+                    transition: "stroke-width 300ms",
+                  }}
+                />
+                {/* Label — animates in/out via max-width */}
+                <span
+                  style={{
+                    fontSize: "12px",
+                    maxWidth: active ? "90px" : "0px",
+                    opacity: active ? 1 : 0,
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    display: "inline-block",
+                    fontWeight: "700",
+                    transition: "max-width 500ms cubic-bezier(0.22,1,0.36,1), opacity 350ms ease",
+                  }}
+                >
+                  {link.label}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
     </>
   );
 }

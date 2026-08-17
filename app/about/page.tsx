@@ -15,7 +15,7 @@ export default function AboutPage() {
   return (
     <div className="pb-10">
       {/* Sub Hero */}
-      <section className="relative py-24 bg-navy text-white text-center overflow-hidden">
+      <section className="relative mt-24 pt-16 pb-20 md:pt-20 md:pb-24 bg-navy text-white text-center overflow-hidden">
         <div className="absolute inset-0 bg-black/40 z-10" />
         <Image
           src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"

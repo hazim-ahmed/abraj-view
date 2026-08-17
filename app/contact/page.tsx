@@ -234,7 +234,7 @@ export default function ContactPage() {
   return (
     <div className="pb-20">
       {/* Sub Hero */}
-      <section className="relative py-20 bg-navy text-white text-center">
+      <section className="relative mt-24 pt-16 pb-20 md:pt-20 md:pb-24 bg-navy text-white text-center">
         <Container className="relative z-10">
           <h1 className="text-4xl sm:text-5xl font-black mb-4">تواصل معنا</h1>
           <p className="text-lg text-zinc-300 max-w-xl mx-auto">

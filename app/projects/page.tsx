@@ -15,7 +15,7 @@ export default function ProjectsPage() {
   return (
     <div className="pb-20">
       {/* Sub Hero */}
-      <section className="relative py-24 bg-navy text-white text-center overflow-hidden">
+      <section className="relative mt-24 pt-16 pb-20 md:pt-20 md:pb-24 bg-navy text-white text-center overflow-hidden">
         <div className="absolute inset-0 bg-black/45 z-10" />
         <Image
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80"
