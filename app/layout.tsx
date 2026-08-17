@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import WhatsAppButton from "../components/layout/WhatsAppButton";
+import ScrollToTop from "../components/ui/ScrollToTop";
 import { siteConfig } from "../config/site";
 
 const tajawal = Tajawal({
@@ -29,7 +30,9 @@ export default function RootLayout({
         <main className="flex-grow">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <ScrollToTop />
       </body>
     </html>
   );
 }
+

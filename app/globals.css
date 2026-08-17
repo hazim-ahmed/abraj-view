@@ -1,28 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #182536;
+  --background: #F7F7F4;
+  --foreground: #20252B;
   
   /* Brand Colors */
-  --navy-dark: #182536;
+  --navy: #182536;
+  --navy-secondary: #22364C;
   --gold: #C7A35A;
   --gold-light: #DFC889;
-  --gray-bg: #F6F6F4;
+  --gray-bg: #F7F7F4;
   --gray-text: #667085;
+  --text-main: #20252B;
+  --border-color: #E8E7E2;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  --color-navy: var(--navy-dark);
+  --color-navy: var(--navy);
+  --color-navy-secondary: var(--navy-secondary);
   --color-gold: var(--gold);
   --color-gold-light: var(--gold-light);
   --color-gray-bg: var(--gray-bg);
   --color-gray-text: var(--gray-text);
+  --color-text-main: var(--text-main);
+  --color-border-color: var(--border-color);
   
   --font-sans: var(--font-tajawal), system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -31,7 +41,12 @@ body {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Custom utility for smooth transitions */
+/* Design System Transitions and Utils */
 .transition-luxury {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.transition-slow {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+

@@ -23,7 +23,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <div className="group bg-white border border-zinc-100 rounded-2xl overflow-hidden transition-luxury hover:shadow-xl hover:-translate-y-1">
+    <div className="group bg-white border border-[#E8E7E2] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-[#C7A35A]/30">
       {/* Image Container */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100">
         <Image
@@ -31,7 +31,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-luxury duration-700 group-hover:scale-105"
+          className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]"
         />
         {/* Status Tag */}
         <span
@@ -45,31 +45,31 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Info Content */}
       <div className="p-6">
-        <div className="flex items-center gap-1 text-xs text-gray-text mb-2">
-          <MapPin className="w-3.5 h-3.5 text-gold shrink-0" />
+        <div className="flex items-center gap-1.5 text-xs text-gray-text mb-2">
+          <MapPin className="w-3.5 h-3.5 text-[#C7A35A] shrink-0" />
           <span>{project.location}</span>
         </div>
 
-        <h3 className="text-xl font-bold text-navy mb-3 group-hover:text-gold transition-colors">
+        <h3 className="text-xl font-bold text-[#182536] mb-3 group-hover:text-[#C7A35A] transition-colors duration-200">
           {project.title}
         </h3>
 
-        <p className="text-sm text-gray-text line-clamp-2 mb-6">
+        <p className="text-sm text-gray-text line-clamp-2 mb-6 leading-relaxed">
           {project.description}
         </p>
 
         {/* Features Row */}
         {(project.area || project.rooms) && (
-          <div className="flex items-center gap-4 py-3 border-y border-zinc-50 mb-6 text-xs text-navy font-medium">
+          <div className="flex items-center gap-4 py-3 border-y border-[#E8E7E2] mb-6 text-xs text-[#182536] font-medium">
             {project.area && (
               <div className="flex items-center gap-1.5">
-                <Maximize2 className="w-4 h-4 text-gold" />
+                <Maximize2 className="w-4 h-4 text-[#C7A35A]" />
                 <span>{project.area}</span>
               </div>
             )}
             {project.rooms && (
               <div className="flex items-center gap-1.5">
-                <BedDouble className="w-4 h-4 text-gold" />
+                <BedDouble className="w-4 h-4 text-[#C7A35A]" />
                 <span>{project.rooms}</span>
               </div>
             )}
@@ -79,12 +79,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Action Button */}
         <Link
           href={`/contact?project=${encodeURIComponent(project.title)}`}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold rounded-lg bg-gray-bg hover:bg-gold hover:text-white text-navy transition-luxury group/btn"
+          className="w-full flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-bold rounded-xl bg-[#F7F7F4] text-[#182536] hover:bg-[#182536] hover:text-white border border-transparent hover:border-[#182536] transition-all duration-300 group/btn"
+          style={{ minHeight: "44px" }}
         >
           <span>استفسر عن المشروع</span>
-          <ArrowLeft className="w-4 h-4 transition-transform group-hover/btn:-translate-x-1" />
+          <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover/btn:-translate-x-1" />
         </Link>
       </div>
     </div>
   );
 }
+

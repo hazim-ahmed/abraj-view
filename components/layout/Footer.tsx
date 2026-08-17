@@ -38,22 +38,22 @@ export default function Footer() {
             </h3>
             <ul className="space-y-4 text-sm text-zinc-400">
               <li>
-                <Link href="/" className="hover:text-white transition-colors">
+                <Link href="/" className="hover:text-[#C7A35A] transition-colors duration-200">
                   الرئيسية
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
+                <Link href="/about" className="hover:text-[#C7A35A] transition-colors duration-200">
                   من نحن
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-white transition-colors">
+                <Link href="/projects" className="hover:text-[#C7A35A] transition-colors duration-200">
                   مشاريعنا
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
+                <Link href="/contact" className="hover:text-[#C7A35A] transition-colors duration-200">
                   تواصل معنا
                 </Link>
               </li>
