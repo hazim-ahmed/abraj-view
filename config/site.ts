@@ -6,7 +6,7 @@ export const siteConfig = {
   whatsapp: "https://wa.me/966555225049",
   email: "abraj.l.h.c@gmail.com",
   web3formsKey: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "9aaa52cf-b673-4576-a112-298a2517ba8b",
-  googleSheetUrl: process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL || "",
+  googleSheetUrl: process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL || "https://script.google.com/macros/s/AKfycbzOv5d09es2CHwjnOBcAEWs-vkN1PaKwq7khECXhO615IEkB2Hpw0djhMWmUasy6dU_-g/exec",
   location: "جدة، المملكة العربية السعودية",
   aboutShort: "شركة متخصصة في التطوير العقاري، نعمل على إنشاء مشاريع سكنية تجمع بين الجودة والتصميم والاهتمام بالتفاصيل لنقدم قيمة حقيقية للسكن والاستثمار.",
   aboutFull: "تأسست شركة أبراج الرفاهية المتقدمة لتكون علامة فارقة في قطاع التطوير العقاري بالمملكة العربية السعودية. نحن نؤمن بأن السكن ليس مجرد جدران، بل هو مساحة للحياة والرفاهية والاستقرار. لذلك، نحرص في كافة مشاريعنا على تطبيق أعلى معايير الجودة العالمية، مستعينين بنخبة من المصممين والمهندسين لتقديم حلول سكنية مبتكرة تجمع بين جمالية التصميم الخارجي وعملية التوزيع الداخلي للمساحات.",
