@@ -69,9 +69,10 @@ function ContactFormContent() {
       web3FormData.append("name", formData.name);
       web3FormData.append("phone", formData.phone);
       web3FormData.append("email", formData.email);
+      web3FormData.append("replyto", formData.email);
       web3FormData.append("subject", formData.subject || `استفسار جديد من ${formData.name}`);
-      web3FormData.append("message", formData.message);
-      web3FormData.append("from_name", formData.name);
+      web3FormData.append("message", `الاسم: ${formData.name}\nرقم الجوال: ${formData.phone}\nالبريد الإلكتروني: ${formData.email}\nالموضوع: ${formData.subject}\n\nنص الرسالة:\n${formData.message}`);
+      web3FormData.append("from_name", "أبراج الرفاهية المتقدمة");
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
