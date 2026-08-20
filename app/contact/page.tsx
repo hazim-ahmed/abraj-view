@@ -80,6 +80,13 @@ function ContactFormContent() {
         body: web3FormData,
       });
 
+      // Save to Excel CSV & Google Sheets API
+      fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      }).catch((err) => console.error("Error saving to Excel API:", err));
+
       const data = await response.json();
 
       if (data.success) {
