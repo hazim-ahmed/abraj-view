@@ -199,7 +199,7 @@ export default function Header() {
       >
         <div className="pt-5 sm:pt-6 flex justify-center pointer-events-auto">
           <div 
-            className="relative flex items-center justify-center px-6 py-2 rounded-xl bg-white/60 backdrop-blur-md shadow-sm border border-[#182536]/5 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            className="relative flex items-center justify-center px-6 py-2 rounded-xl bg-[#182536]/90 backdrop-blur-md shadow-lg border border-[#C7A35A]/30 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? "scaleX(1) translateY(0)" : "scaleX(0.75) translateY(-8px)"
@@ -216,7 +216,7 @@ export default function Header() {
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#C7A35A] text-[#182536] font-black text-base shadow-sm">
                 أ
               </span>
-              <span className="text-sm font-black text-[#182536] tracking-tight">
+              <span className="text-sm font-black text-white tracking-tight">
                 {siteConfig.name}
               </span>
             </Link>
@@ -246,12 +246,12 @@ export default function Header() {
           transition: "opacity 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1)",
         }}
       >
-        {/* Unified gradient glass bar — XLinkY style */}
+        {/* Luxury Gold & Navy Glass Bar */}
         <div
-          className="flex items-center gap-1 px-1.5 py-2 rounded-2xl border border-white/10 backdrop-blur-2xl"
+          className="flex items-center gap-1.5 px-2 py-2 rounded-2xl border border-[#C7A35A]/30 backdrop-blur-2xl"
           style={{
-            background: "linear-gradient(90deg, #1D4F73 0%, #203B5A 50%, #2E3060 100%)",
-            boxShadow: "0 16px 40px -14px rgba(24,37,54,0.45)",
+            background: "linear-gradient(135deg, #182536 0%, #0E1724 100%)",
+            boxShadow: "0 16px 40px -14px rgba(14, 23, 36, 0.75), 0 0 20px -5px rgba(199, 163, 90, 0.2)",
             minHeight: "62px",
           }}
         >
@@ -264,16 +264,16 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={`flex items-center justify-center gap-1.5 py-2.5 rounded-xl select-none ${
-                  active ? "text-white" : "text-white/60 hover:text-white/80 active:scale-95"
+                  active ? "text-[#C7A35A]" : "text-zinc-300 hover:text-white active:scale-95"
                 }`}
                 style={
                   active
                     ? {
                         flex: "1.5",
                         minHeight: "44px",
-                        background: "rgba(255,255,255,0.18)",
-                        boxShadow: "inset 0 1px 1px rgba(255,255,255,0.18)",
-                        border: "1px solid rgba(255,255,255,0.14)",
+                        background: "rgba(199, 163, 90, 0.15)",
+                        boxShadow: "0 4px 20px -4px rgba(199, 163, 90, 0.35), inset 0 1px 1px rgba(255,255,255,0.2)",
+                        border: "1px solid rgba(199, 163, 90, 0.4)",
                         borderRadius: "0.75rem",
                         transition: "flex 500ms cubic-bezier(0.22,1,0.36,1)",
                       }
@@ -290,7 +290,8 @@ export default function Header() {
                     width: "20px",
                     height: "20px",
                     strokeWidth: active ? 2.5 : 2,
-                    transition: "stroke-width 300ms",
+                    color: active ? "#C7A35A" : "currentColor",
+                    transition: "stroke-width 300ms, color 300ms",
                   }}
                 />
                 {/* Label — animates in/out via max-width */}
@@ -302,7 +303,8 @@ export default function Header() {
                     overflow: "hidden",
                     whiteSpace: "nowrap",
                     display: "inline-block",
-                    fontWeight: "700",
+                    fontWeight: "800",
+                    color: "#C7A35A",
                     transition: "max-width 500ms cubic-bezier(0.22,1,0.36,1), opacity 350ms ease",
                   }}
                 >
