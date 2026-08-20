@@ -64,37 +64,30 @@ function ContactFormContent() {
     setLastMethod("email");
 
     try {
-      // Direct Silent Background Submit to API route & Web3Forms
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const web3FormData = new FormData();
+      web3FormData.append("access_key", siteConfig.web3formsKey);
+      web3FormData.append("name", formData.name);
+      web3FormData.append("phone", formData.phone);
+      web3FormData.append("email", formData.email);
+      web3FormData.append("subject", formData.subject || `استفسار جديد من ${formData.name}`);
+      web3FormData.append("message", formData.message);
+      web3FormData.append("from_name", formData.name);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: siteConfig.web3formsKey,
-          from_name: formData.name,
-          to_email: siteConfig.email,
-          subject: formData.subject || `استفسار جديد من ${formData.name}`,
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          message: formData.message,
-        }),
+        body: web3FormData,
       });
 
-      // Send to local internal route as backup log
-      await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const data = await response.json();
 
-      setIsSubmitted(true);
+      if (data.success) {
+        setIsSubmitted(true);
+      } else {
+        setErrorMessage(data.message || "حدث خطأ أثناء إرسال الرسالة، يرجى التأكد من المفتاح والمعلومات");
+      }
     } catch (err) {
-      console.error("Error submitting form in background:", err);
-      // Still show success screen to the user
-      setIsSubmitted(true);
+      console.error("Error submitting form:", err);
+      setErrorMessage("تعذر الاتصال بالخادم، يرجى التأكد من الاتصال بالإنترنت والمحاولة مجددًا");
     } finally {
       setIsLoading(false);
     }
