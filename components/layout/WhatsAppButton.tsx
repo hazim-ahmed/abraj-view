@@ -7,7 +7,7 @@ export default function WhatsAppButton() {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 flex items-center gap-3">
+    <div className="fixed bottom-24 md:bottom-6 left-6 z-50 flex items-center gap-3">
       {/* Tooltip */}
       <span
         className={`bg-[#182536] text-white text-xs font-bold py-2 px-3 rounded-lg shadow-md border border-[#22364C] whitespace-nowrap transition-all duration-300 pointer-events-none ${
