@@ -4,7 +4,7 @@ export const siteConfig = {
   title: "أبراج الرفاهية المتقدمة | تطوير عقاري",
   phone: "+966 55 522 5049",
   whatsapp: "https://wa.me/966555225049",
-  email: "abrag.l.h.c@gmail.com",
+  email: "abraj.l.h.c@gmail.com",
   web3formsKey: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "9aaa52cf-b673-4576-a112-298a2517ba8b",
   location: "جدة، المملكة العربية السعودية",
   aboutShort: "شركة متخصصة في التطوير العقاري، نعمل على إنشاء مشاريع سكنية تجمع بين الجودة والتصميم والاهتمام بالتفاصيل لنقدم قيمة حقيقية للسكن والاستثمار.",
