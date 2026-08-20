@@ -62,7 +62,7 @@ function ContactFormContent() {
               </div>
               <div>
                 <span className="text-xs text-zinc-400 block mb-1">رقم الهاتف / الجوال</span>
-                <a href={`tel:${siteConfig.phone}`} className="text-base font-bold hover:text-gold transition-colors" dir="ltr">
+                <a href={`tel:${siteConfig.phone.replace(/\s+/g, "")}`} className="text-base font-bold hover:text-gold transition-colors" dir="ltr">
                   {siteConfig.phone}
                 </a>
               </div>
@@ -194,7 +194,7 @@ function ContactFormContent() {
                 value={formData.subject}
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-xl border border-[#E8E7E2] bg-white text-[#182536] placeholder-[#667085]/60 transition-all duration-200 focus:outline-none focus:border-[#C7A35A] focus:ring-4 focus:ring-[#C7A35A]/10 text-sm"
-                placeholder="مثال: استفسار حول مشروع الرفاهية"
+                placeholder="مثال: استفسار حول مشروع أبراج الرفاهية 111"
                 style={{ minHeight: "44px" }}
               />
             </div>
