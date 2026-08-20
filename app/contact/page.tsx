@@ -2,7 +2,7 @@
 
 import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Phone, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, Send, CheckCircle2, MessageSquare, Loader2 } from "lucide-react";
 import Container from "../../components/ui/Container";
 import SectionTitle from "../../components/ui/SectionTitle";
 import { siteConfig } from "../../config/site";
@@ -20,6 +20,8 @@ function ContactFormContent() {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [lastMethod, setLastMethod] = useState<"email" | "whatsapp">("email");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,18 +30,75 @@ function ContactFormContent() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const constructWhatsAppText = () => {
+    return `*استفسار من موقع أبراج الرفاهية المتقدمة*\n\n👤 *الاسم:* ${formData.name}\n📱 *رقم الجوال:* ${formData.phone}\n✉️ *البريد:* ${formData.email || "غير محدد"}\n🏷️ *الموضوع:* ${formData.subject || "استفسار عام"}\n\n📝 *الرسالة:*\n${formData.message}`;
+  };
+
+  const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate API response
+    if (!formData.name || !formData.phone || !formData.message) {
+      alert("يرجى تعبئة جميع الحقول المطلوبة (الاسم، الجوال، والرسالة)");
+      return;
+    }
+
+    setLastMethod("whatsapp");
+    const text = constructWhatsAppText();
+    const cleanPhone = siteConfig.phone.replace(/\D/g, "");
+    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`;
+    
+    window.open(whatsappUrl, "_blank");
     setIsSubmitted(true);
-    // Reset form after submission if needed
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.phone || !formData.email || !formData.message) {
+      alert("يرجى تعبئة جميع الحقول المطلوبة");
+      return;
+    }
+
+    setIsLoading(true);
+    setLastMethod("email");
+
+    try {
+      // 1. Send via local API Route
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      // 2. Fallback to direct Web3Forms submission
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "abraj-alrafah-key",
+          from_name: formData.name,
+          to_email: siteConfig.email,
+          subject: formData.subject || `استفسار جديد من ${formData.name}`,
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+    } catch (err) {
+      console.error("Error sending message:", err);
+    } finally {
+      // 3. Trigger mailto as a reliable client-side mail option
+      const mailtoSubject = encodeURIComponent(formData.subject || `استفسار من ${formData.name}`);
+      const mailtoBody = encodeURIComponent(
+        `الاسم: ${formData.name}\nرقم الجوال: ${formData.phone}\nالبريد الإلكتروني: ${formData.email}\nالموضوع: ${formData.subject}\n\nالرسالة:\n${formData.message}`
+      );
+      window.open(`mailto:${siteConfig.email}?subject=${mailtoSubject}&body=${mailtoBody}`, "_blank");
+
+      setIsLoading(false);
+      setIsSubmitted(true);
+    }
   };
 
   return (
@@ -99,8 +158,9 @@ function ContactFormContent() {
             href={siteConfig.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-[#25D366] text-white font-bold hover:bg-[#20ba5a] transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-[#25D366] text-white font-bold hover:bg-[#20ba5a] transition-colors shadow-md"
           >
+            <MessageSquare className="w-5 h-5 shrink-0" />
             <span>راسلنا مباشرة عبر واتساب</span>
           </a>
         </div>
@@ -111,28 +171,46 @@ function ContactFormContent() {
         {isSubmitted ? (
           <div className="h-full flex flex-col items-center justify-center text-center py-12">
             <CheckCircle2 className="w-16 h-16 text-emerald-500 mb-6 animate-pulse" />
-            <h4 className="text-2xl font-bold text-navy mb-3">تم استلام طلبك بنجاح!</h4>
-            <p className="text-base text-gray-text max-w-sm">
-              شكرًا لتواصلك معنا. سنتواصل معك قريبًا عبر الهاتف أو البريد الإلكتروني لتزويدك بالتفاصيل.
+            <h4 className="text-2xl font-bold text-navy mb-3">تم تجهيز طلبك بنجاح!</h4>
+            <p className="text-base text-gray-text max-w-sm mb-6">
+              {lastMethod === "whatsapp"
+                ? "تم فتح تطبيق الواتساب لتأكيد إرسال رسالتك مباشرة إلى مستشارنا العقاري."
+                : `تم تجهيز رسالتك الموجهة إلى (${siteConfig.email}). سنتواصل معك في أسرع وقت ممكن.`}
             </p>
-            <button
-              onClick={() => setIsSubmitted(false)}
-              className="mt-8 px-6 py-2.5 rounded-lg bg-navy text-white hover:bg-gold transition-luxury text-sm font-semibold"
-            >
-              إرسال رسالة أخرى
-            </button>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={() => {
+                  setIsSubmitted(false);
+                  setFormData({ name: "", phone: "", email: "", subject: "", message: "" });
+                }}
+                className="px-6 py-3 rounded-xl bg-navy text-white hover:bg-gold transition-luxury text-sm font-semibold"
+              >
+                إرسال رسالة أخرى
+              </button>
+
+              <a
+                href={`https://wa.me/${siteConfig.phone.replace(/\D/g, "")}?text=${encodeURIComponent(constructWhatsAppText())}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-xl bg-[#25D366] text-white font-bold hover:bg-[#20ba5a] transition-colors text-sm flex items-center justify-center gap-2"
+              >
+                <MessageSquare className="w-4 h-4" />
+                <span>متابعة فورية عبر الواتساب</span>
+              </a>
+            </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form className="space-y-6">
             <h3 className="text-2xl font-bold text-navy mb-2">أرسل لنا استفسارك</h3>
             <p className="text-sm text-gray-text mb-6">
-              يرجى تعبئة الحقول أدناه، وسيتواصل معك مستشارنا العقاري في أسرع وقت.
+              يرجى تعبئة الحقول أدناه واختيار وسيلة الإرسال المفضلة لديك (الإيميل أو الواتساب).
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-xs font-bold text-[#182536] mb-2">
-                  الاسم الكامل
+                  الاسم الكامل <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -149,7 +227,7 @@ function ContactFormContent() {
 
               <div>
                 <label htmlFor="phone" className="block text-xs font-bold text-[#182536] mb-2">
-                  رقم الجوال
+                  رقم الجوال <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="tel"
@@ -167,7 +245,7 @@ function ContactFormContent() {
 
             <div>
               <label htmlFor="email" className="block text-xs font-bold text-[#182536] mb-2">
-                البريد الإلكتروني
+                البريد الإلكتروني <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
@@ -190,7 +268,6 @@ function ContactFormContent() {
                 type="text"
                 name="subject"
                 id="subject"
-                required
                 value={formData.subject}
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-xl border border-[#E8E7E2] bg-white text-[#182536] placeholder-[#667085]/60 transition-all duration-200 focus:outline-none focus:border-[#C7A35A] focus:ring-4 focus:ring-[#C7A35A]/10 text-sm"
@@ -201,7 +278,7 @@ function ContactFormContent() {
 
             <div>
               <label htmlFor="message" className="block text-xs font-bold text-[#182536] mb-2">
-                الرسالة
+                الرسالة <span className="text-red-500">*</span>
               </label>
               <textarea
                 name="message"
@@ -215,14 +292,33 @@ function ContactFormContent() {
               />
             </div>
 
-            <button
-              type="submit"
-              className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-[#182536] text-white hover:bg-[#C7A35A] hover:text-[#182536] font-bold transition-all duration-300 text-sm shadow-md hover:shadow-lg disabled:opacity-50"
-              style={{ minHeight: "48px" }}
-            >
-              <Send className="w-4 h-4 shrink-0" />
-              <span>إرسال الطلب</span>
-            </button>
+            {/* Two Action Buttons */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <button
+                type="button"
+                onClick={handleEmailSubmit}
+                disabled={isLoading}
+                className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#182536] text-white hover:bg-[#C7A35A] hover:text-[#182536] font-bold transition-all duration-300 text-sm shadow-md hover:shadow-lg disabled:opacity-50"
+                style={{ minHeight: "48px" }}
+              >
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Send className="w-4 h-4 shrink-0" />
+                )}
+                <span>إرسال عبر البريد الإلكتروني</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleWhatsAppSubmit}
+                className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#25D366] text-white hover:bg-[#20ba5a] font-bold transition-all duration-300 text-sm shadow-md hover:shadow-lg"
+                style={{ minHeight: "48px" }}
+              >
+                <MessageSquare className="w-4 h-4 shrink-0" />
+                <span>إرسال عبر الواتساب</span>
+              </button>
+            </div>
           </form>
         )}
       </div>
