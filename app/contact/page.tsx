@@ -66,6 +66,7 @@ function ContactFormContent() {
     try {
       const web3FormData = new FormData();
       web3FormData.append("access_key", siteConfig.web3formsKey);
+      web3FormData.append("to_email", siteConfig.email);
       web3FormData.append("name", formData.name);
       web3FormData.append("phone", formData.phone);
       web3FormData.append("email", formData.email);
