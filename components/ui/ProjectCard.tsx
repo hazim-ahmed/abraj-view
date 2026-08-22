@@ -23,7 +23,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <div className="group bg-white border border-[#E8E7E2] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-[#C7A35A]/30">
+    <div className="group bg-white border border-[#E2E8F0] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-[#00D2C8]/40">
       {/* Image Container */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100">
         <Image
@@ -46,11 +46,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       {/* Info Content */}
       <div className="p-6">
         <div className="flex items-center gap-1.5 text-xs text-gray-text mb-2">
-          <MapPin className="w-3.5 h-3.5 text-[#C7A35A] shrink-0" />
+          <MapPin className="w-3.5 h-3.5 text-[#00D2C8] shrink-0" />
           <span>{project.location}</span>
         </div>
 
-        <h3 className="text-xl font-bold text-[#182536] mb-3 group-hover:text-[#C7A35A] transition-colors duration-200">
+        <h3 className="text-xl font-bold text-[#0A2540] mb-3 group-hover:text-[#00D2C8] transition-colors duration-200">
           {project.title}
         </h3>
 
@@ -60,16 +60,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Features Row */}
         {(project.area || project.rooms) && (
-          <div className="flex items-center gap-4 py-3 border-y border-[#E8E7E2] mb-6 text-xs text-[#182536] font-medium">
+          <div className="flex items-center gap-4 py-3 border-y border-[#E2E8F0] mb-6 text-xs text-[#0A2540] font-medium">
             {project.area && (
               <div className="flex items-center gap-1.5">
-                <Maximize2 className="w-4 h-4 text-[#C7A35A]" />
+                <Maximize2 className="w-4 h-4 text-[#00D2C8]" />
                 <span>{project.area}</span>
               </div>
             )}
             {project.rooms && (
               <div className="flex items-center gap-1.5">
-                <BedDouble className="w-4 h-4 text-[#C7A35A]" />
+                <BedDouble className="w-4 h-4 text-[#00D2C8]" />
                 <span>{project.rooms}</span>
               </div>
             )}
@@ -79,7 +79,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Action Button */}
         <Link
           href={`/contact?project=${encodeURIComponent(project.title)}`}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-bold rounded-xl bg-[#F7F7F4] text-[#182536] hover:bg-[#182536] hover:text-white border border-transparent hover:border-[#182536] transition-all duration-300 group/btn"
+          className="w-full flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-bold rounded-xl bg-[#F8FAFC] text-[#0A2540] hover:bg-gradient-to-r hover:from-[#0A2540] hover:to-[#00D2C8] hover:text-white border border-transparent hover:border-[#0A2540] transition-all duration-300 group/btn"
           style={{ minHeight: "44px" }}
         >
           <span>استفسر عن المشروع</span>

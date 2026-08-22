@@ -27,7 +27,7 @@ export default function ProjectsPreview() {
         <div className="text-center">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-8 py-3.5 text-base font-bold rounded-lg border border-navy text-navy hover:bg-navy hover:text-white transition-luxury group"
+            className="inline-flex items-center gap-2 px-8 py-3.5 text-base font-bold rounded-xl bg-gradient-to-r from-[#0A2540] to-[#00D2C8] text-white hover:opacity-95 transition-all shadow-md hover:shadow-lg group"
           >
             <span>استعرض كافة المشاريع</span>
             <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />

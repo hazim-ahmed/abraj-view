@@ -216,7 +216,7 @@ function ContactFormContent() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="name" className="block text-xs font-bold text-[#182536] mb-2">
+                <label htmlFor="name" className="block text-xs font-bold text-[#0A2540] mb-2">
                   الاسم الكامل <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -226,14 +226,14 @@ function ContactFormContent() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border border-[#E8E7E2] bg-white text-[#182536] placeholder-[#667085]/60 transition-all duration-200 focus:outline-none focus:border-[#C7A35A] focus:ring-4 focus:ring-[#C7A35A]/10 text-sm"
+                  className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white text-[#0A2540] placeholder-[#64748B]/60 transition-all duration-200 focus:outline-none focus:border-[#00D2C8] focus:ring-4 focus:ring-[#00D2C8]/10 text-sm"
                   placeholder="أدخل اسمك هنا"
                   style={{ minHeight: "44px" }}
                 />
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-xs font-bold text-[#182536] mb-2">
+                <label htmlFor="phone" className="block text-xs font-bold text-[#0A2540] mb-2">
                   رقم الجوال <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -243,7 +243,7 @@ function ContactFormContent() {
                   required
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border border-[#E8E7E2] bg-white text-[#182536] placeholder-[#667085]/60 transition-all duration-200 focus:outline-none focus:border-[#C7A35A] focus:ring-4 focus:ring-[#C7A35A]/10 text-sm"
+                  className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white text-[#0A2540] placeholder-[#64748B]/60 transition-all duration-200 focus:outline-none focus:border-[#00D2C8] focus:ring-4 focus:ring-[#00D2C8]/10 text-sm"
                   placeholder="05xxxxxxx"
                   style={{ minHeight: "44px" }}
                 />
@@ -251,7 +251,7 @@ function ContactFormContent() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-xs font-bold text-[#182536] mb-2">
+              <label htmlFor="email" className="block text-xs font-bold text-[#0A2540] mb-2">
                 البريد الإلكتروني <span className="text-red-500">*</span>
               </label>
               <input
@@ -261,14 +261,14 @@ function ContactFormContent() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-[#E8E7E2] bg-white text-[#182536] placeholder-[#667085]/60 transition-all duration-200 focus:outline-none focus:border-[#C7A35A] focus:ring-4 focus:ring-[#C7A35A]/10 text-sm"
+                className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white text-[#0A2540] placeholder-[#64748B]/60 transition-all duration-200 focus:outline-none focus:border-[#00D2C8] focus:ring-4 focus:ring-[#00D2C8]/10 text-sm"
                 placeholder="example@mail.com"
                 style={{ minHeight: "44px" }}
               />
             </div>
 
             <div>
-              <label htmlFor="subject" className="block text-xs font-bold text-[#182536] mb-2">
+              <label htmlFor="subject" className="block text-xs font-bold text-[#0A2540] mb-2">
                 الموضوع
               </label>
               <input
@@ -277,14 +277,14 @@ function ContactFormContent() {
                 id="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-[#E8E7E2] bg-white text-[#182536] placeholder-[#667085]/60 transition-all duration-200 focus:outline-none focus:border-[#C7A35A] focus:ring-4 focus:ring-[#C7A35A]/10 text-sm"
+                className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white text-[#0A2540] placeholder-[#64748B]/60 transition-all duration-200 focus:outline-none focus:border-[#00D2C8] focus:ring-4 focus:ring-[#00D2C8]/10 text-sm"
                 placeholder="مثال: استفسار حول مشروع أبراج الرفاهية 111"
                 style={{ minHeight: "44px" }}
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-xs font-bold text-[#182536] mb-2">
+              <label htmlFor="message" className="block text-xs font-bold text-[#0A2540] mb-2">
                 الرسالة <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -294,7 +294,7 @@ function ContactFormContent() {
                 required
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-[#E8E7E2] bg-white text-[#182536] placeholder-[#667085]/60 transition-all duration-200 focus:outline-none focus:border-[#C7A35A] focus:ring-4 focus:ring-[#C7A35A]/10 text-sm resize-none"
+                className="w-full px-4 py-3 rounded-xl border border-[#E2E8F0] bg-white text-[#0A2540] placeholder-[#64748B]/60 transition-all duration-200 focus:outline-none focus:border-[#00D2C8] focus:ring-4 focus:ring-[#00D2C8]/10 text-sm resize-none"
                 placeholder="اكتب استفسارك بالتفصيل هنا..."
               />
             </div>
@@ -305,7 +305,7 @@ function ContactFormContent() {
                 type="button"
                 onClick={handleEmailSubmit}
                 disabled={isLoading}
-                className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#182536] text-white hover:bg-[#C7A35A] hover:text-[#182536] font-bold transition-all duration-300 text-sm shadow-md hover:shadow-lg disabled:opacity-50"
+                className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#0A2540] to-[#00D2C8] text-white hover:opacity-95 font-bold transition-all duration-300 text-sm shadow-md hover:shadow-lg disabled:opacity-50"
                 style={{ minHeight: "48px" }}
               >
                 {isLoading ? (

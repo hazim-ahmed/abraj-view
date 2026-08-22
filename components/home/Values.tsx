@@ -16,10 +16,10 @@ export default function Values() {
           {siteConfig.values.map((value, idx) => (
             <div
               key={value.title}
-              className="p-8 rounded-2xl bg-white border border-zinc-100 hover:border-gold/50 transition-luxury text-right flex flex-col justify-between"
+              className="p-8 rounded-2xl bg-white border border-slate-100 hover:border-[#00D2C8]/50 transition-luxury text-right flex flex-col justify-between"
             >
               <div>
-                <span className="text-4xl font-extrabold text-gold/20 mb-6 block">
+                <span className="text-4xl font-extrabold text-[#00D2C8]/30 mb-6 block">
                   0{idx + 1}
                 </span>
                 <h3 className="text-xl font-bold text-navy mb-3">

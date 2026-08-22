@@ -32,7 +32,7 @@ export default function SectionTitle({
         {title}
       </h2>
       <div
-        className={`h-[3px] w-16 bg-gold rounded-full ${
+        className={`h-[3px] w-16 bg-gradient-to-r from-[#0A2540] to-[#00D2C8] rounded-full ${
           align === "center" ? "mx-auto" : ""
         }`}
       />

@@ -83,7 +83,7 @@ export default function Header() {
             
             {/* Background Line */}
             <div
-              className="absolute top-1/2 left-10 right-10 h-px bg-gradient-to-r from-transparent via-[#182536]/15 to-transparent -translate-y-1/2 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none"
+              className="absolute top-1/2 left-10 right-10 h-px bg-gradient-to-r from-transparent via-[#0A2540]/15 to-transparent -translate-y-1/2 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none"
               style={{
                 opacity: 1 - scrollProgress,
                 transform: `translateY(-50%) scaleX(${1 - scrollProgress * 0.25})`,
@@ -102,13 +102,13 @@ export default function Header() {
                 style={{
                   backgroundColor: `rgba(255, 255, 255, ${scrollProgress * 0.6})`,
                   backdropFilter: isScrolled ? "blur(20px)" : "none",
-                  border: isScrolled ? "1px solid rgba(24, 37, 84, 0.05)" : "1px solid transparent",
-                  boxShadow: isScrolled ? "0 14px 40px -20px rgba(24,37,54,0.35)" : "none",
+                  border: isScrolled ? "1px solid rgba(10, 37, 64, 0.05)" : "1px solid transparent",
+                  boxShadow: isScrolled ? "0 14px 40px -20px rgba(10, 37, 64, 0.35)" : "none",
                 }}
               >
                 <Link href="/" className="flex items-center gap-3 group">
                   <span 
-                    className="flex items-center justify-center rounded-xl bg-[#C7A35A] text-[#182536] font-black text-xl transition-all duration-300 group-hover:bg-[#DFC889] group-hover:scale-105"
+                    className="flex items-center justify-center rounded-xl bg-gradient-to-br from-[#0A2540] to-[#00D2C8] text-white font-black text-xl transition-all duration-300 group-hover:scale-105 shadow-sm"
                     style={{
                       height: `${46 - scrollProgress * 4}px`,
                       width: `${46 - scrollProgress * 4}px`,
@@ -117,10 +117,10 @@ export default function Header() {
                     أ
                   </span>
                   <div className="flex flex-col text-right">
-                    <span className="text-base font-black text-[#182536] tracking-tight leading-tight transition-colors duration-300 group-hover:text-[#C7A35A]">
+                    <span className="text-base font-black text-[#0A2540] tracking-tight leading-tight transition-colors duration-300 group-hover:text-[#00D2C8]">
                       {siteConfig.name}
                     </span>
-                    <span className="text-[9px] text-[#C7A35A] font-medium tracking-wide">
+                    <span className="text-[9px] text-[#00D2C8] font-bold tracking-wide">
                       تطوير عقاري راقٍ
                     </span>
                   </div>
@@ -133,10 +133,10 @@ export default function Header() {
               className="transform-gpu will-change-transform flex items-center gap-6 px-7 py-2.5 rounded-full border transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
               style={{
                 transform: `translateY(${-scrollProgress * 4}px) scale(${1 - scrollProgress * 0.03})`,
-                backgroundColor: isScrolled ? "rgba(247, 247, 244, 0.8)" : "rgba(24, 37, 54, 0.015)",
-                borderColor: isScrolled ? "rgba(24, 37, 54, 0.08)" : "rgba(24, 37, 54, 0.04)",
+                backgroundColor: isScrolled ? "rgba(248, 250, 252, 0.8)" : "rgba(10, 37, 64, 0.015)",
+                borderColor: isScrolled ? "rgba(10, 37, 64, 0.08)" : "rgba(10, 37, 64, 0.04)",
                 backdropFilter: isScrolled ? "blur(24px)" : "blur(4px)",
-                boxShadow: isScrolled ? "0 16px 45px -18px rgba(24, 37, 54, 0.28)" : "none",
+                boxShadow: isScrolled ? "0 16px 45px -18px rgba(10, 37, 64, 0.28)" : "none",
               }}
             >
               {navLinks.map((link) => (
@@ -145,17 +145,17 @@ export default function Header() {
                   href={link.href}
                   className={`text-xs font-bold transition-all duration-300 relative py-1 px-1 flex flex-col items-center gap-1.5 ${
                     isActive(link.href)
-                      ? "text-[#C7A35A]"
-                      : "text-[#182536]/80 hover:text-[#C7A35A] hover:-translate-y-[1px]"
+                      ? "text-[#00D2C8]"
+                      : "text-[#0A2540]/80 hover:text-[#00D2C8] hover:-translate-y-[1px]"
                   }`}
                 >
                   <span>{link.label}</span>
                   <span
-                    className="h-1.5 w-1.5 rounded-full bg-[#C7A35A] transition-all duration-300"
+                    className="h-1.5 w-1.5 rounded-full bg-[#00D2C8] transition-all duration-300"
                     style={{
                       opacity: isActive(link.href) ? 1 : 0,
                       transform: isActive(link.href) ? "scale(1)" : "scale(0.5)",
-                      boxShadow: isActive(link.href) ? "0 2px 12px rgba(199,163,90,0.9)" : "none",
+                      boxShadow: isActive(link.href) ? "0 2px 12px rgba(0, 210, 200, 0.9)" : "none",
                     }}
                   />
                 </Link>
@@ -172,9 +172,9 @@ export default function Header() {
               <div className="hover:scale-[1.03] active:scale-95 transition-transform duration-200">
                 <Link
                   href="/contact"
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#182536] text-white hover:bg-[#C7A35A] hover:text-[#182536] transition-all duration-300 text-xs font-bold"
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#0A2540] to-[#00D2C8] text-white hover:opacity-95 transition-all duration-300 text-xs font-bold shadow-md hover:shadow-lg"
                   style={{
-                    boxShadow: isScrolled ? "0 14px 35px -15px rgba(24, 37, 54, 0.35)" : "none",
+                    boxShadow: isScrolled ? "0 14px 35px -15px rgba(10, 37, 64, 0.35)" : "none",
                   }}
                 >
                   <Phone className="w-3.5 h-3.5" />
@@ -199,21 +199,21 @@ export default function Header() {
       >
         <div className="pt-5 sm:pt-6 flex justify-center pointer-events-auto">
           <div 
-            className="relative flex items-center justify-center px-6 py-2 rounded-xl bg-[#182536]/90 backdrop-blur-md shadow-lg border border-[#C7A35A]/30 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            className="relative flex items-center justify-center px-6 py-2 rounded-xl bg-[#0A2540]/90 backdrop-blur-md shadow-lg border border-[#00D2C8]/30 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? "scaleX(1) translateY(0)" : "scaleX(0.75) translateY(-8px)"
             }}
           >
-            {/* Top Right Golden Corner */}
-            <div className="absolute -top-[2px] -right-[2px] w-6 h-6 border-t-[2.5px] border-r-[2.5px] border-[#C7A35A] rounded-tr-xl pointer-events-none" />
+            {/* Top Right Turquoise Corner */}
+            <div className="absolute -top-[2px] -right-[2px] w-6 h-6 border-t-[2.5px] border-r-[2.5px] border-[#00D2C8] rounded-tr-xl pointer-events-none" />
 
-            {/* Bottom Left Golden Corner */}
-            <div className="absolute -bottom-[2px] -left-[2px] w-6 h-6 border-b-[2.5px] border-l-[2.5px] border-[#C7A35A] rounded-bl-xl pointer-events-none" />
+            {/* Bottom Left Turquoise Corner */}
+            <div className="absolute -bottom-[2px] -left-[2px] w-6 h-6 border-b-[2.5px] border-l-[2.5px] border-[#00D2C8] rounded-bl-xl pointer-events-none" />
 
             {/* Logo Text Content */}
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#C7A35A] text-[#182536] font-black text-base shadow-sm">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#00D2C8] text-[#0A2540] font-black text-base shadow-sm">
                 أ
               </span>
               <span className="text-sm font-black text-white tracking-tight">
@@ -221,9 +221,9 @@ export default function Header() {
               </span>
             </Link>
 
-            {/* Little golden expanding line at bottom */}
+            {/* Little turquoise expanding line at bottom */}
             <div 
-              className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 h-[2px] bg-[#C7A35A] rounded-full transition-all duration-1000 ease-out"
+              className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 h-[2px] bg-[#00D2C8] rounded-full transition-all duration-1000 ease-out"
               style={{
                 width: mounted ? "40px" : "0px",
               }}
@@ -246,12 +246,12 @@ export default function Header() {
           transition: "opacity 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1)",
         }}
       >
-        {/* Luxury Gold & Navy Glass Bar */}
+        {/* Luxury Turquoise & Blue Glass Bar */}
         <div
-          className="flex items-center gap-1.5 px-2 py-2 rounded-2xl border border-[#C7A35A]/30 backdrop-blur-2xl"
+          className="flex items-center gap-1.5 px-2 py-2 rounded-2xl border border-[#00D2C8]/30 backdrop-blur-2xl"
           style={{
-            background: "linear-gradient(135deg, #182536 0%, #0E1724 100%)",
-            boxShadow: "0 16px 40px -14px rgba(14, 23, 36, 0.75), 0 0 20px -5px rgba(199, 163, 90, 0.2)",
+            background: "linear-gradient(135deg, #0A2540 0%, #061527 100%)",
+            boxShadow: "0 16px 40px -14px rgba(6, 21, 39, 0.75), 0 0 20px -5px rgba(0, 210, 200, 0.25)",
             minHeight: "62px",
           }}
         >
@@ -264,16 +264,16 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={`flex items-center justify-center gap-1.5 py-2.5 rounded-xl select-none ${
-                  active ? "text-[#C7A35A]" : "text-zinc-300 hover:text-white active:scale-95"
+                  active ? "text-[#00D2C8]" : "text-zinc-300 hover:text-white active:scale-95"
                 }`}
                 style={
                   active
                     ? {
                         flex: "1.5",
                         minHeight: "44px",
-                        background: "rgba(199, 163, 90, 0.15)",
-                        boxShadow: "0 4px 20px -4px rgba(199, 163, 90, 0.35), inset 0 1px 1px rgba(255,255,255,0.2)",
-                        border: "1px solid rgba(199, 163, 90, 0.4)",
+                        background: "rgba(0, 210, 200, 0.15)",
+                        boxShadow: "0 4px 20px -4px rgba(0, 210, 200, 0.35), inset 0 1px 1px rgba(255,255,255,0.2)",
+                        border: "1px solid rgba(0, 210, 200, 0.4)",
                         borderRadius: "0.75rem",
                         transition: "flex 500ms cubic-bezier(0.22,1,0.36,1)",
                       }
@@ -290,7 +290,7 @@ export default function Header() {
                     width: "20px",
                     height: "20px",
                     strokeWidth: active ? 2.5 : 2,
-                    color: active ? "#C7A35A" : "currentColor",
+                    color: active ? "#00D2C8" : "currentColor",
                     transition: "stroke-width 300ms, color 300ms",
                   }}
                 />
@@ -304,7 +304,7 @@ export default function Header() {
                     whiteSpace: "nowrap",
                     display: "inline-block",
                     fontWeight: "800",
-                    color: "#C7A35A",
+                    color: "#00D2C8",
                     transition: "max-width 500ms cubic-bezier(0.22,1,0.36,1), opacity 350ms ease",
                   }}
                 >

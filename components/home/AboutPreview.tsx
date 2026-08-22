@@ -23,8 +23,8 @@ export default function AboutPreview() {
               />
             </div>
             {/* Design detail */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-4 border-r-4 border-gold rounded-br-3xl -z-10" />
-            <div className="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-navy rounded-tl-3xl -z-10" />
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-4 border-r-4 border-[#00D2C8] rounded-br-3xl -z-10" />
+            <div className="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-[#0A2540] rounded-tl-3xl -z-10" />
           </div>
 
           {/* Text side */}
@@ -42,7 +42,7 @@ export default function AboutPreview() {
             </p>
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold rounded-lg bg-navy text-white hover:bg-gold transition-luxury group"
+              className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-bold rounded-xl bg-gradient-to-r from-[#0A2540] to-[#00D2C8] text-white hover:opacity-95 transition-all shadow-md group"
             >
               <span>تعرف علينا أكثر</span>
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />

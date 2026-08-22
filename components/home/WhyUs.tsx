@@ -32,12 +32,12 @@ export default function WhyUs() {
           {siteConfig.whyUs.map((item) => (
             <div
               key={item.id}
-              className="p-8 rounded-2xl border border-zinc-100 bg-white hover:border-gold hover:shadow-xl transition-luxury flex flex-col items-center text-center group"
+              className="p-8 rounded-2xl border border-slate-100 bg-white hover:border-[#00D2C8] hover:shadow-xl transition-luxury flex flex-col items-center text-center group"
             >
-              <div className="mb-6 p-4 rounded-xl bg-gray-bg group-hover:bg-gold/10 transition-colors">
+              <div className="mb-6 p-4 rounded-xl bg-gray-bg group-hover:bg-[#00D2C8]/10 transition-colors">
                 {getIcon(item.icon)}
               </div>
-              <h3 className="text-lg font-bold text-navy mb-3 group-hover:text-gold transition-colors">
+              <h3 className="text-lg font-bold text-navy mb-3 group-hover:text-[#00D2C8] transition-colors">
                 {item.title}
               </h3>
               <p className="text-sm text-gray-text leading-relaxed">

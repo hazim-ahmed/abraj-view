@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F7F7F4;
-  --foreground: #20252B;
+  --background: #F8FAFC;
+  --foreground: #0F172A;
   
-  /* Brand Colors */
-  --navy: #182536;
-  --navy-secondary: #22364C;
-  --gold: #C7A35A;
-  --gold-light: #DFC889;
-  --gray-bg: #F7F7F4;
-  --gray-text: #667085;
-  --text-main: #20252B;
-  --border-color: #E8E7E2;
+  /* Brand Colors - Blue & Turquoise Theme */
+  --navy: #0A2540;
+  --navy-secondary: #0F2942;
+  --gold: #00D2C8;
+  --gold-light: #5EEAD4;
+  --turquoise: #00D2C8;
+  --turquoise-light: #5EEAD4;
+  --gray-bg: #F8FAFC;
+  --gray-text: #64748B;
+  --text-main: #0F172A;
+  --border-color: #E2E8F0;
 }
 
 @theme inline {
@@ -23,6 +25,8 @@
   --color-navy-secondary: var(--navy-secondary);
   --color-gold: var(--gold);
   --color-gold-light: var(--gold-light);
+  --color-turquoise: var(--turquoise);
+  --color-turquoise-light: var(--turquoise-light);
   --color-gray-bg: var(--gray-bg);
   --color-gray-text: var(--gray-text);
   --color-text-main: var(--text-main);

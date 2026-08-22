@@ -29,7 +29,7 @@ export default function ScrollToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-24 md:bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-xl bg-[#182536] text-[#C7A35A] border border-[#22364C] shadow-lg transition-all duration-300 hover:bg-[#C7A35A] hover:text-[#182536] focus:outline-none focus:ring-4 focus:ring-[#C7A35A]/30 cursor-pointer ${
+      className={`fixed bottom-24 md:bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-[#0A2540] to-[#0F2942] text-[#00D2C8] border border-[#00D2C8]/30 shadow-lg transition-all duration-300 hover:bg-[#00D2C8] hover:text-[#0A2540] focus:outline-none focus:ring-4 focus:ring-[#00D2C8]/30 cursor-pointer ${
         isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-75 pointer-events-none"
       }`}
       aria-label="العودة لأعلى الصفحة"
